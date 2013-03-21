@@ -10,14 +10,17 @@ Usage
 -----
 
 Set the background image:
+
 	./spacesetbg
 
 Display information about the background (download if needed):
+
 	./spacesetbg 1
 
 Dependancies
 ------------
 (pacman package names)
+
 hsetroot
 python-beautifulsoup4
 libnotify
