@@ -24,7 +24,7 @@ def getbg():
 	## description
 	i = tree.find_all('p')
 	i[3].clear()
-	item.append(i[2].get_text().strip().replace('\n','<br>'))
+	item.append(i[2].get_text().strip().replace('\n','<br>').replace('\xa0',''))
 	## url
 	try:
 		i = tree.img.parent['href']
