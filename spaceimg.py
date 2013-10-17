@@ -15,7 +15,8 @@ def geturl(url):
 # Find today's astronomy image
 def getbg():
 	# parse the page for image information
-	base = "http://apod.nasa.gov/apod/"
+	base = "http://www.star.ucl.ac.uk/~apod/apod/"
+#	base = "http://apod.nasa.gov/apod/"
 	item = []
 	tree = geturl(base)
 	## title
