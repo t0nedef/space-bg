@@ -46,15 +46,15 @@ def grabbg():
 		os.system('notify-send -t 0 "could not write to '+tspcdir+'/path.txt"')
 	#
 	# Get background
-	if bg[2] == "":
+	if bg[2] == "": #must be a video
 		os.system('spacevideo.sh "'+path+'"')
 	else:
 		os.system('wget -q -O today.jpg '+path) == 0 or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.jpg"')
 		os.system('touch today.jpg')
 		# If its a gif, copy it to the movie file (extensions are all wrong but display progs are okay)
 		if path[-4:] == ".gif":
-			os.system('cp today.jpg today.mp4') == 0 \
-				or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.mp4"')
+			os.system('cp today.jpg today.gif') == 0 \
+				or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.gif"')
 	#
 	# Set background
 	os.system('hsetroot '+opt+'today.jpg')
@@ -83,5 +83,8 @@ else:
 	if os.path.exists("today.mp4"):
 		if( (os.path.getmtime('today.jpg') - os.path.getmtime('today.mp4'))/3600 < 2 ):
 			os.system('mplayer today.mp4')
+	if os.path.exists("today.gif"):
+		if( (os.path.getmtime('today.jpg') - os.path.getmtime('today.gif'))/3600 < 2 ):
+			os.system('animate today.gif')
 
 #
