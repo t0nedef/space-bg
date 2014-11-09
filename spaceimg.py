@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
 from bs4 import BeautifulSoup
+from socket import timeout
 import urllib.request, re, string
 
 ##
 # Return the contents of a url
 def geturl(url):
-	content = urllib.request.urlopen(url)
+	content = urllib.request.urlopen(url, timeout=15)
 	data = content.read()
 	content.close()
 	return BeautifulSoup(data)
@@ -15,10 +16,18 @@ def geturl(url):
 # Find today's astronomy image
 def getbg():
 	# parse the page for image information
-	base = "http://www.star.ucl.ac.uk/~apod/apod/"
-#	base = "http://apod.nasa.gov/apod/"
+	## get the page
+	base = "http://apod.nasa.gov/apod/"
+	try:
+		tree = geturl(base)
+	# if the main page doesn't work, try a mirror
+	except timeout:
+		base = "http://www.star.ucl.ac.uk/~apod/apod/"
+		try:
+			tree = geturl(base)
+		except timeout:
+			return ""
 	item = []
-	tree = geturl(base)
 	## title
 	i = tree.find_all('center')[1].b.string.strip()
 	item.append(i)
