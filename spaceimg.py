@@ -47,12 +47,14 @@ def getbg():
 	if (i.find('http://') > -1):
 		item.append(i)
 	else:
-		item.append(base+i)
+		# filter potential leading space
+		item.append(base+i.strip())
 	item.append("")
 	return item
 
 ##
 # Parse for video file
+# do this by looking for an iframe
 def getvideo(tree):
 	i = tree.find_all('iframe')
 	if(len(i) == 0):

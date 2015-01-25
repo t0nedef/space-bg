@@ -22,6 +22,7 @@ def grabbg():
 	#
 	# Find today's astronomy image
 	bg = spaceimg.getbg()
+#	os.system('notify-send -t 0 "space images debug:'+bg[0]+','+str(len(bg[1]))+','+bg[2]+','+bg[3]+'"')
 	opt = "-fill "
 	if bg[2] == "":
 		if bg[3] == "":
@@ -46,7 +47,7 @@ def grabbg():
 		os.system('notify-send -t 0 "could not write to '+tspcdir+'/path.txt"')
 	#
 	# Get background
-	if bg[2] == "": #must be a video
+	if bg[2] == "": #must be a video taken from an iframe (linked)
 		os.system('spacevideo.sh "'+path+'"')
 	else:
 		os.system('wget -q -O today.jpg '+path) == 0 or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.jpg"')
@@ -55,8 +56,15 @@ def grabbg():
 		if path[-4:] == ".gif":
 			os.system('cp today.jpg today.gif') == 0 \
 				or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.gif"')
+		# If its an mp4, copy it to the movie file (extensions are all wrong but display progs are okay)
+		if path[-4:] == ".mp4":
+			os.system('cp today.jpg today.mp4') == 0 \
+				or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.mp4"')
+			# be sure to extract a frame to display as the background
+			os.system('spacevideo.sh local')
 	#
 	# Set background
+#	os.system('notify-send -t 0 "running:hsetroot '+opt+'today.jpg"')
 	os.system('hsetroot '+opt+'today.jpg')
 	# Dump HTML describing image
 	note = '<u><b>'+str(bg[0])+'</b></u>\n'

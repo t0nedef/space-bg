@@ -2,10 +2,15 @@
 url=$1
 cd ~/.spaceimgs
 if [ `echo "$url" | grep 'www.youtube.com' | wc -l` -gt 0 ]; then
+	# youtube
 	url=`echo "$url" | awk -F '/embed/' '{ print $2; }'`
 	youtube-dl http://www.youtube.com/watch?v=$url > /dev/null 2>&1
 elif [ `echo "$url" | grep 'player.vimeo.com' | wc -l` -gt 0 ]; then
+	# vimeo
 	vimeo-dl "$url" > /dev/null 2>&1
+elif [ "$url" == "local" ] && [ -f today.mp4 ]; then
+	# already d/l
+	mv today.mp4 local.mp4
 else
 	echo "error $0: $url is not an expected format" 1>&2
 	exit 1
