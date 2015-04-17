@@ -50,7 +50,7 @@ def grabbg():
 	if bg[2] == "": #must be a video taken from an iframe (linked)
 		os.system('spacevideo.sh "'+path+'"')
 	else:
-		os.system('wget -q -O today.jpg '+path) == 0 or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.jpg"')
+		os.system('wget -q -O today.jpg "'+path+'"') == 0 or os.system('notify-send -t 0 "could not write to '+tspcdir+'/today.jpg"')
 		os.system('touch today.jpg')
 		# If its a gif, copy it to the movie file (extensions are all wrong but display progs are okay)
 		if path[-4:] == ".gif":
