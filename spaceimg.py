@@ -10,7 +10,7 @@ def geturl(url):
 	content = urllib.request.urlopen(url, timeout=15)
 	data = content.read()
 	content.close()
-	return BeautifulSoup(data)
+	return BeautifulSoup(data, "html.parser")
 
 ##
 # Find today's astronomy image
